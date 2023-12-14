@@ -31,8 +31,9 @@ def make_linear_predictions(data, linear_guesses):
     x = data.iloc[:,0]
     logging.info(f"x:\n{x}")
     for guess in linear_guesses:
+        logging.info(f"guess: {guess}")
         prediction = guess["slope"]*x+guess["y_intercept"]
-        key = f"({guess['slope']},{guess['y_intercept']})"
+        key = f"{guess['slope'],guess['y_intercept']}"
         predictions[key] = prediction
     logging.info(f"predictions:\n{predictions}")
     return predictions
