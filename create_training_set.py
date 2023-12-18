@@ -15,8 +15,8 @@ def pd_to_csv(data, output_path):
 def main():
     logging.info("main()")
     data = {
-        "x": [1, 2, 3, 4, 5],
-        "y": [1, 2, 3, 4, 5]
+        "x": [4, 8, 3, 2, 9],
+        "y": [1, 3, 7, 6, 0]
     }
 
     output_path = os.path.join("training_sets", "data_set_01.csv")

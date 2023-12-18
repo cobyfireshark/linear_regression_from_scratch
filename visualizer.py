@@ -6,6 +6,8 @@ def plot_xy_data(data, figure_path):
     plt.xlabel('X Values')
     plt.ylabel('Y Values')
     plt.title('Scatter Plot of Data')
+    plt.xlim(0, 10)
+    plt.ylim(0, 10)
     plt.savefig(figure_path)
     plt.close()
 
@@ -19,6 +21,8 @@ def plot_lines(x_values, linear_definitions, figure_path):
     plt.ylabel("y")
     plt.title("Plot of lines")
     plt.legend()
+    plt.xlim(0, 10)
+    plt.ylim(0, 10)
     plt.savefig(figure_path)
     plt.close()
 
