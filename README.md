@@ -8,7 +8,7 @@ Need to create a parameters.json file in the repository directory with:
     {
         "repository_path": "[your path]"
     }
-    
+
 Need to create a directory called figures where scripts save the figures to
 I put my datasets I am messing with in directory called training_sets
 
@@ -20,3 +20,5 @@ I often test basic datasets, create_training_set.py will save a .csv you can use
 As is common I put utility functions in util.py script
 
 Uses unittest library to test functionality
+
+Scripts use Python logging module, there is a shell script to setup logs in /var/log
