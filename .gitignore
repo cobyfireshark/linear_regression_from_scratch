@@ -6,3 +6,7 @@ pyvenv.cfg
 include
 share
 .vscode
+figures
+training_sets
+testing/test_figures
+parameters.json

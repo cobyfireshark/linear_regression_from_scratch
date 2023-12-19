@@ -1,7 +1,48 @@
-# decision_tree/util.py
+# regression/util.py
 import os
 import logging
+import itertools
+import json
 from csv import reader
+
+# Set up basic logging configuration if no logging configuration is present
+if not logging.getLogger().hasHandlers():
+    logging.basicConfig(level=logging.INFO)
+
+def create_linear_guesses(
+    m_start=0,
+    m_end=10,
+    m_step=2,
+    b_start=0,
+    b_end=10,
+    b_step=2,
+    return_dictionary=False
+):
+    logging.info("util.create_linear_guesses()")
+
+    if (m_end - m_start) % m_step != 0:
+        logging.warning(f"Slope range does not evenly divide: ending before {m_end}")
+    slopes = range(m_start, m_end, m_step)
+    logging.info(f"slopes:\n{slopes}")
+
+    if (b_end - b_start) % b_step != 0:
+        logging.warning(f"Y-intercept range does not evenly divide: ending before {b_end}")
+    y_intercepts = range(b_start, b_end, b_step)
+    logging.info(f"y_intercepts:\n{y_intercepts}")
+
+    combinations = list(itertools.product(slopes, y_intercepts))
+    logging.info(f"combinations:\n{combinations}")
+
+    if not return_dictionary:
+        linear_guesses = combinations
+        logging.info("return_dictionary=False, so linear_guesses is list of tuples")
+    else:
+        linear_guesses = [{'slope': m, 'y_intercept': b} for m, b in combinations]
+        logging.info("return_dictionary=True, so linear_guesses is list of dictionaries with keys slope and y_intercept")
+
+    
+    logging.info(f"linear_guesses (m,b):\n{json.dumps(linear_guesses, indent=4)}")
+    return linear_guesses
 
 # Load a CSV file
 def load_csv(filepath, has_header=False):
