@@ -19,7 +19,7 @@ def main():
         "y": [1, 3, 7, 6, 0]
     }
 
-    output_path = os.path.join("training_sets", "data_set_01.csv")
+    output_path = os.path.join("test_datasets", "data_set_01.csv")
     pd_to_csv(data, output_path)
 
 if __name__ == '__main__':

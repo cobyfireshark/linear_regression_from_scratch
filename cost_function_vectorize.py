@@ -1,11 +1,12 @@
+# [repository_directory]/cost_function_vectorize.py
 import util
 import logging
 import os
 import json
 import argparse
-import itertools
 import pandas as pd
 import visualizer
+import util
 
 cost_function_log_path = os.path.join("/var", "log", "regression", "cost_function.log")
 util.initialize_logging(cost_function_log_path)
@@ -38,22 +39,12 @@ def make_linear_predictions(data, linear_guesses):
     # logging.info(f"predictions:\n{predictions}")
     return predictions
 
-def create_linear_guesses():
-    logging.info("create_linear_guesses()")
-    slopes = range(0,10,2)
-    logging.info(f"slopes: {slopes}")
-    y_intercepts = range(0,10,2)
-    combinations = list(itertools.product(slopes, y_intercepts))
-    linear_guesses = [{'slope': m, 'y_intercept': b} for m, b in combinations]
-    logging.info(f"linear_guesses (m,b):\n{json.dumps(linear_guesses, indent=4)}")
-    return linear_guesses
-
-def main(training_set_path):
+def main(training_set_path, dictionary_mode):
     logging.info(f"main(training_set_path={training_set_path})")
     input_data = pd.read_csv(training_set_path)
     input_data_figure_path = os.path.join("figures", "input_data.png")
     visualizer.plot_xy_data(input_data, input_data_figure_path)
-    linear_guesses = create_linear_guesses()
+    linear_guesses = util.create_linear_guesses()
     linear_guesses_tuples = [(entry["slope"], entry["y_intercept"]) for entry in linear_guesses]
     linear_guesses_figure_path = os.path.join("figures", "linear_guesses.png")
     visualizer.plot_lines(input_data.iloc[:,0], linear_guesses_tuples, linear_guesses_figure_path)
@@ -72,6 +63,7 @@ def main(training_set_path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()    
     parser.add_argument("--training-set-path", required=True, help="Your training sets full path")
+    parser.add_argument("--dictionary-mode", action="store_true")
     args = parser.parse_args()
 
-    main(args.training_set_path)
+    main(args.training_set_path, args.dictionary_mode)

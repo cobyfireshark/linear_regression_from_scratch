@@ -4,6 +4,7 @@ import logging
 import itertools
 import json
 from csv import reader
+import pandas as pd
 
 # Set up basic logging configuration if no logging configuration is present
 if not logging.getLogger().hasHandlers():
@@ -43,6 +44,25 @@ def create_linear_guesses(
     
     logging.info(f"linear_guesses (m,b):\n{json.dumps(linear_guesses, indent=4)}")
     return linear_guesses
+
+# If first data row got saved as header of .csv, this function will fix it
+def fix_csv_header(csv_path):
+    # Read the CSV file without header
+    df = pd.read_csv(csv_path, header=None)
+
+    # Assuming the first row should be the header
+    new_header = df.iloc[0]
+
+    # Take the data less the header row
+    df = df[1:]
+
+    # Set the new header
+    df.columns = new_header
+
+    # Save the fixed DataFrame to a new CSV file
+    new_csv_path = csv_path.replace('.csv', '_fixed.csv')
+    df.to_csv(new_csv_path, index=False)
+    return new_csv_path
 
 # Load a CSV file
 def load_csv(filepath, has_header=False):

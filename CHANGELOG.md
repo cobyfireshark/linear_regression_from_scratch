@@ -1,4 +1,4 @@
-# Changelog of Regression from scratch project
+# Changelog of Linear Regression from scratch project
 12/18/23:
 Made lots of mistakes in first pass of calculating cost function and conducting linear regression
  -Did calculations one at a time due to nature of for loops in Python
